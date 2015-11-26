@@ -1,5 +1,5 @@
 # Population model
-source("function.R")
+source("R/function.R")
 ## Make everything probability based. # Do year by year
 
 StartingGeneration <- 1900
@@ -69,6 +69,7 @@ require(scales)
 
 WorldPopulation <- read.table("WorldPopulation.csv", header = T, sep = ",")
 
+pdf("../figures/Test.pdf")
 ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   geom_line(aes(linetype = "solid", colour = as.factor(Scenario)), show.legend = FALSE) +
   geom_line(data = WorldPopulation, aes(y = Population, x = Year, linetype = "dashed")) + ## 2015 world population estimate
@@ -77,3 +78,4 @@ ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   scale_y_continuous("Population (billions)", labels=billion, expand = c(0,0)) +
   scale_x_continuous("Year", expand = c(0,0)) +
   theme_classic(base_size = 20)
+dev.off()
