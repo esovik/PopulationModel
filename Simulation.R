@@ -10,7 +10,7 @@ Population <- expand.grid(TimeStep = 2000:MaxTime,
                           Generation = StartingGeneration:MaxTime,
                           Population = 0,
                           Children = 0,
-                          Scenario = c(1,2))
+                          Scenario = c(1,2,3,4))
 
 options(stringsAsFactors = FALSE)
 StartingPopulation <- read.table("StartingPopulation.csv", header = TRUE, sep = ",", dec = ".")
@@ -20,12 +20,20 @@ Population <- Population[Population$Generation<=Population$TimeStep,]
 
 Population$NumChildren[Population$Scenario == 1] <- 2
 Population$NumChildren[Population$Scenario == 2] <- 2
+Population$NumChildren[Population$Scenario == 3] <- 3
+Population$NumChildren[Population$Scenario == 4] <- 3
 
-Population$StartReproduction[Population$Scenario == 1] <- 19
-Population$StopReproduction[Population$Scenario == 1] <- 28
+Population$StartReproduction[Population$Scenario == 1] <- 20
+Population$StopReproduction[Population$Scenario == 1] <- 30
 
 Population$StartReproduction[Population$Scenario == 2] <- 30
 Population$StopReproduction[Population$Scenario == 2] <- 40
+
+Population$StartReproduction[Population$Scenario == 3] <- 20
+Population$StopReproduction[Population$Scenario == 3] <- 30
+
+Population$StartReproduction[Population$Scenario == 4] <- 30
+Population$StopReproduction[Population$Scenario == 4] <- 40
 
 TimeSteps <- StartTime:MaxTime
 
@@ -65,7 +73,7 @@ ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   geom_line(aes(linetype = "solid", colour = as.factor(Scenario)), show.legend = FALSE) +
   geom_line(data = WorldPopulation, aes(y = Population, x = Year, linetype = "dashed")) + ## 2015 world population estimate
   scale_linetype_identity() +
-  scale_color_manual(values = c("red","blue")) +
+  scale_color_manual(values = c("red","blue","black","green")) +
   scale_y_continuous("Population (billions)", labels=billion, expand = c(0,0)) +
   scale_x_continuous("Year", expand = c(0,0)) +
   theme_classic(base_size = 20)
