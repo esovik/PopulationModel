@@ -1,9 +1,5 @@
 # Population model
 
-MortalityRate <- function(Age){
-  return(1 - exp(-0.003*exp((Age - 25)/10)))
-}
-
 ## Make everything probability based. # Do year by year
 
 MinRep <- 15
@@ -54,6 +50,6 @@ require(scales)
 ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   geom_line() +
   geom_hline(yintercept = 7256490011, colour = "red") + ## 2015 world population estimate
-  scale_y_log10("Population", breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x))) +
+  scale_y_continuous("Population (billions)", labels=billion, expand = c(0,0)) +
     scale_x_continuous("Year", expand = c(0,0)) +
     theme_classic(base_size = 20)
