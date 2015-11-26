@@ -1,5 +1,5 @@
 # Population model
-
+source("function.R")
 ## Make everything probability based. # Do year by year
 
 MinRep <- 15
