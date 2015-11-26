@@ -6,9 +6,9 @@ MortalityRate <- function(Age){
 
 ## Make everything probability based. # Do year by year
 
-MinRep <- 20
-MaxRep <- 30
-Children <- 0.3
+MinRep <- 15
+MaxRep <- 35
+Children <- 0.105
 StartingGeneration <- 1900
 StartTime <- 2001
 MaxTime <- 2100
@@ -35,8 +35,6 @@ for(i in TimeSteps){
    }
 }
 
-Population$Population[Population$Population == 0] <- NA
-Population$Children[Population$Children == 0] <- NA
 
 ggplot(Population, aes(x = TimeStep, y = Population, colour = as.factor(Generation))) +
   geom_line(show.legend = FALSE) +
@@ -44,3 +42,18 @@ ggplot(Population, aes(x = TimeStep, y = Population, colour = as.factor(Generati
   scale_y_continuous(expand = c(0,0)) +
   scale_x_continuous(expand = c(0,0)) +
   theme_classic()
+
+require(dplyr)
+
+data.frame(Population %>% group_by(TimeStep) %>% summarise(pop = sum(Population))) -> sumPopulation
+
+require(ggplot2)
+require(scales)
+
+ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
+  geom_line() +
+  geom_hline(yintercept = 7256490011, colour = "red") + ## 2015 world population estimate
+  scale_y_log10("Population", breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x))) +
+    scale_x_continuous("Year", expand = c(0,0)) +
+    theme_classic(base_size = 20)
+  
