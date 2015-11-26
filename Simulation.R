@@ -22,6 +22,7 @@ options(stringsAsFactors = FALSE)
 StartingPopulation <- read.table("StartingPopulation.csv", header = TRUE, sep = ",", dec = ".")
 
 Population$Population[Population$TimeStep==2000&Population$Generation %in% StartingGeneration:2000] <- rev(StartingPopulation$Population)
+Population <- Population[Population$Generation<=Population$TimeStep,]
 
 TimeSteps <- StartTime:MaxTime
 
@@ -56,4 +57,3 @@ ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   scale_y_log10("Population", breaks = trans_breaks("log10", function(x) 10^x), labels = trans_format("log10", math_format(10^.x))) +
     scale_x_continuous("Year", expand = c(0,0)) +
     theme_classic(base_size = 20)
-  
