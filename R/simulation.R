@@ -1,7 +1,23 @@
 # Population model
-source("R/function.R")
-## Make everything probability based. # Do year by year
 
+source("R/function.R")
+
+## Mortality prediction
+MortPred <- data.frame(Age = c(0:110),
+                       People = rep(100,111))
+
+MortPred$People <- MortPred$People - (MortPred$People * MortalityRate(MortPred$Age))
+
+png("figures/Mortality.png")
+ggplot(MortPred, aes(y = People,x = Age)) +
+  geom_line() +
+  scale_y_continuous("% Alive", expand = c(0,0), limits = c(0,105), breaks = seq(0,100,20)) +
+  scale_x_continuous("Age", expand = c(0,0)) +
+  theme_classic(base_size = 20)
+dev.off()
+
+
+## Population model
 StartingGeneration <- 1900
 StartTime <- 2001
 MaxTime <- 2020
