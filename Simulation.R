@@ -37,7 +37,7 @@ for(s in unique(Population$Scenario)){
   for(i in TimeSteps){
     for(k in Population$Generation[Population$TimeStep == i-1&Population$Population > 0&Population$Scenario == s]){
       Population$Population[Population$Generation == k&Population$TimeStep == i&Population$Scenario == s] <- Population$Population[Population$Generation == k&Population$TimeStep == i-1&Population$Scenario == s] - (Population$Population[Population$Generation == k&Population$TimeStep == i-1&Population$Scenario == s] * (MortalityRate(i - k)))
-      if((i - k) %in% seq(StartReproduction:StopReproduction)){
+      if((i - k) %in% seq(StartReproduction,StopReproduction)){
         Population$Population[Population$Generation == i&Population$TimeStep==i&Population$Scenario == s] <- Population$Population[Population$Generation == i&Population$TimeStep==i&Population$Scenario == s] + (Population$Population[Population$Generation == k&Population$TimeStep == i&Population$Scenario == s] * (ChildRate/2))
         Population$Children[Population$Generation == k&Population$TimeStep==i&Population$Scenario == s] <- Population$Children[Population$Generation == k&Population$TimeStep==i - 1&Population$Scenario == s] + (Population$Population[Population$Generation == k&Population$TimeStep == i&Population$Scenario == s] * (ChildRate/2))
       }
