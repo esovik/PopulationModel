@@ -1,3 +1,7 @@
-# Population Model
+Simulation of the global human population under different reproductive scenarios
+================================================================================
 
-Trying to simulate the impact on the world population from different number of children/family versus time of first child.
+Results
+-------
+
+![Global poppulation](figures/Fig1.png)

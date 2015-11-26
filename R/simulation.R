@@ -4,7 +4,7 @@ source("R/function.R")
 
 StartingGeneration <- 1900
 StartTime <- 2001
-MaxTime <- 2050
+MaxTime <- 2020
 
 Population <- expand.grid(TimeStep = 2000:MaxTime,
                           Generation = StartingGeneration:MaxTime,
@@ -13,7 +13,7 @@ Population <- expand.grid(TimeStep = 2000:MaxTime,
                           Scenario = c(1,2,3,4))
 
 options(stringsAsFactors = FALSE)
-StartingPopulation <- read.table("StartingPopulation.csv", header = TRUE, sep = ",", dec = ".")
+StartingPopulation <- read.table("data/StartingPopulation.csv", header = TRUE, sep = ",", dec = ".")
 
 Population$Population[Population$TimeStep==2000&Population$Generation %in% StartingGeneration:2000] <- rev(StartingPopulation$Population)
 Population <- Population[Population$Generation<=Population$TimeStep,]
@@ -67,9 +67,9 @@ data.frame(Population %>% group_by(TimeStep,Scenario) %>% summarise(pop = sum(Po
 require(ggplot2)
 require(scales)
 
-WorldPopulation <- read.table("WorldPopulation.csv", header = T, sep = ",")
+WorldPopulation <- read.table("data/WorldPopulation.csv", header = T, sep = ",")
 
-pdf("../figures/Test.pdf")
+png("figures/Fig1.png")
 ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   geom_line(aes(linetype = "solid", colour = as.factor(Scenario)), show.legend = FALSE) +
   geom_line(data = WorldPopulation, aes(y = Population, x = Year, linetype = "dashed")) + ## 2015 world population estimate
