@@ -8,7 +8,7 @@ MortPred <- data.frame(Age = c(0:110),
 
 MortPred$People <- MortPred$People - (MortPred$People * MortalityRate(MortPred$Age))
 
-png("figures/Mortality.png")
+png("figures/Mortality.png", height = 380, width = 380)
 ggplot(MortPred, aes(y = People,x = Age)) +
   geom_line() +
   scale_y_continuous("% Alive", expand = c(0,0), limits = c(0,105), breaks = seq(0,100,20)) +
@@ -85,7 +85,7 @@ require(scales)
 
 WorldPopulation <- read.table("data/WorldPopulation.csv", header = T, sep = ",")
 
-png("figures/Fig1.png")
+png("figures/Fig1.png", height = 380, width = 380)
 ggplot(sumPopulation, aes(x = TimeStep, y = pop)) +
   geom_line(aes(linetype = "solid", colour = as.factor(Scenario)), show.legend = FALSE) +
   geom_line(data = WorldPopulation, aes(y = Population, x = Year, linetype = "dashed")) + ## 2015 world population estimate
