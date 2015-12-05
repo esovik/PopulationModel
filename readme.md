@@ -12,3 +12,7 @@ Results
 -------
 
 ![Global poppulation](figures/Fig1.png)
+
+Leridon H. 2004. Can assisted reproduction technology compensate for the
+natural decline in fertility with age? a model assessment. *Human
+Reproduction*. 19(7):1548–53

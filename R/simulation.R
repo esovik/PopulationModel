@@ -16,6 +16,20 @@ ggplot(MortPred, aes(y = People,x = Age)) +
   theme_classic(base_size = 20)
 dev.off()
 
+## Fecundity prediction
+FecPred <- data.frame(Age = c(0:50),
+                      Fecundity = rep(0,51))
+
+for(i in FecPred$Age){FecPred$Fecundity[FecPred$Age == i] <- FecundityRate(i)}
+
+png("figures/Fecundity.png", height = 380, width = 380)
+ggplot(FecPred, aes(y = Fecundity,x = Age)) +
+  geom_line() +
+  scale_y_continuous("Fecundity rate", expand = c(0,0), limits = c(0,0.30), breaks = seq(0,0.30,0.05)) +
+  scale_x_continuous("Age", limits = c(0,50), breaks = seq(0,50,5), expand = c(0,0)) +
+  theme_classic(base_size = 20)
+dev.off()
+
 
 ## Population model
 StartingGeneration <- 1900
